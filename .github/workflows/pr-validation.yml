@@ -1,0 +1,32 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Check out your code so the runner can see it
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up your environment (Example: Node.js)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Step 4: Run Linter (Checks code style)
+      - name: Run Linter
+        run: npm run lint
+
+      # Step 5: Run Tests (The most important part)
+      - name: Run Tests
+        run: npm test        
